@@ -10,11 +10,13 @@ BGP hijacking events. The term **prefix hijacking** refers to an event when an
 AS, called an *hijacking AS*, advertises illegitimately a prefix equal or more
 specific to a prefix delegated to another AS, called the *hijacked AS*.
 
-TaBi is able to process BGP messages thanks to its companion MRT parser
-[mabo](https://github.com/anssi-fr/mabo), it is also compatible with
-[bgpreader](https://bgpstream.caida.org/docs/tools/bgpreader). Internally, BGP
-messages are translated into internal messages. Therefore, its is possible to
-add new input tools depending on our needs by writing a new wrapper.
+Usually, TaBi processes BGP messages that are archived in MRT files. Then, in
+order to use it, you will then need to install a MRT parser.  Its favorite
+companion is [MaBo](https://github.com/ANSSI-FR/mabo), but it is also
+compatible with CAIDA's
+[bgpreader](https://bgpstream.caida.org/docs/tools/bgpreader). Internally, TaBi
+translates BGP messages into its own representation. Therefore, its is possible
+to implement new inputs depending on your needs.
 
 
 ## Authors
@@ -30,6 +32,11 @@ add new input tools depending on our needs by writing a new wrapper.
 TaBi depends on two external Python modules. The easiest method to install them
 is to use [virtualenv](https://virtualenv.pypa.io) and
 [pip](https://pip.pypa.io/).
+
+If you use a Debian-like system you can install these dependencies using:
+```shell
+apt-get install python-dev python-pip python-virtualenv
+```
 
 ```shell
 virtualenv ve_tabi
