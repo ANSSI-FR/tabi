@@ -55,17 +55,11 @@ of the [RIPE RIS](https://www.ripe.net/analyse/internet-measurements/routing-inf
 ### Grabbing MRT dumps
 
 You will then need to retrieve some MRT dumps. Copying and pasting the
-following commands in a terminal will grab dumps and store them into the
-`MRT_dumps` directory.
+following commands in a terminal will grab a full BGP view and some updates.
 
 ```shell
-dir=$PWD/MRT_dumps/
-base_url=http://data.ris.ripe.net/rrc01
-mkdir -p ${dir}
-wget --continue --directory-prefix=${dir} ${base_url}/2016.01/bview.20160101.0000.gz
-for dt in $(seq -f '%04.0f' 0 5 55); do
-    wget --continue --directory-prefix=${dir} ${base_url}/2016.01/updates.20160101.${dt}.gz
-done
+wget -c http://data.ris.ripe.net/rrc01/2016.01/bview.20160101.0000.gz
+wget -c http://data.ris.ripe.net/rrc01/2016.01/updates.20160101.0000.gz
 ```
 
 ### `tabi` - the command line tool
@@ -108,10 +102,10 @@ default is the combined output mode.
 
 Here is an example call to tabi:
 ```shell
-tabi -j 8 rrc01 results_tabi MRT_dumps/*
+tabi -j 8 rrc01 results/ bview.20160101.0000.gz updates.20160101.0000.gz
 ```
 
-After around 5 minutes of processing, you will find the following files in `results_tabi/2016.01/`:
+After around 5 minutes of processing, you will find the following files in `results/2016.01/`:
 - `all.defaults.json.gz` that contains all default routes seen by TaBi
 - `all.routes.json.gz` that contains all routes monitored
 - `all.hijacks.json.gz` that contains all BGP prefix conflicts

@@ -24,7 +24,7 @@ python detect_hijacks.py -c rrc01 -i mabo \
     --irr-ro-file routes.csv \
     --irr-mnt-file maintainers.csv \
     --irr-org-file organisations.csv \
-    ../../MRT_dumps/*.gz
+    ../../{bview,updates}.*.gz
 ```
 
 This example script prints the abnormal events that were detected by the
