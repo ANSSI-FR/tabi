@@ -116,6 +116,7 @@ def detect_hijacks(collector, files,
     :return: Generator of hijacks (conflicts with annotation)
     """
 
+    logger.info("loading metadata...")
     funcs = [annotate_if_direct]
     if irr_org_file is not None and irr_mnt_file is not None:
         relations_dict = dict()
@@ -135,6 +136,7 @@ def detect_hijacks(collector, files,
         funcs.append(partial(annotate_if_roa, ro_rad_tree))
 
     funcs.append(annotate_with_type)
+    logger.info("starting hijacks detection...")
     for conflict in detect_conflicts(collector, files,
                                      opener=opener, format=format,
                                      is_watched=is_watched):
