@@ -1,7 +1,4 @@
-# TaBi - Track BGP
-
-
-## Overview 
+# TaBi - Track BGP Hijacks
 
 Developed since 2011 for the needs of the [French Internet Resilience
 Observatory](http://www.ssi.gouv.fr/observatoire), TaBi is a framework that
@@ -38,6 +35,7 @@ If you use a Debian-like system you can install these dependencies using:
 apt-get install python-dev python-pip python-virtualenv
 ```
 
+Then install TaBi in a virtual environment:
 ```shell
 virtualenv ve_tabi
 source ve_tabi/bin/activate
@@ -52,7 +50,7 @@ repository.
 ## Usage
 
 Historically TaBi was designed to process MRT dump files from the collectors
-of the [RIPE RIS]((https://www.ripe.net/analyse/internet-measurements/routing-information-service-ris/ris-raw-data).
+of the [RIPE RIS](https://www.ripe.net/analyse/internet-measurements/routing-information-service-ris/ris-raw-data).
 
 ### Grabbing MRT dumps
 
@@ -78,7 +76,7 @@ It uses [mabo](https://github.com/ANSSI-FR/mabo) to parse MRT dumps.
 
 Given the name of the BGP collector, an output directory and MRT dumps using the
 RIS naming convention, `tabi` will follow the evolution of routes seen in MRT
-dumps (or provided with the --ases option), and detect BGP IP prefixes
+dumps (or provided with the `--ases` option), and detect BGP IP prefixes
 conflicts.
 
 Several options can be used to control tabi behavior:
@@ -88,9 +86,9 @@ Usage: tabi [options] collector_id output_directory filenames*
 
 Options:
   -h, --help            show this help message and exit
-  -f, --file            files' content comes from mabo
+  -f, --file            files content comes from mabo
   -p PIPE, --pipe=PIPE  Read the MRT filenames used as input from this pipe
-  -d, --disable         disable checks of the filenames' RIS format
+  -d, --disable         disable checks of the filenames RIS format
   -j JOBS, --jobs=JOBS  Number of jobs that will process the files
   -a ASES, --ases=ASES  File containing the ASes to monitor
   -s, --stats           Enable code profiling
