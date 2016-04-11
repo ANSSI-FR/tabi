@@ -79,7 +79,7 @@ def fill_roa_struct(input, rad_tree, opener=default_opener):
 def annotate_if_relation(relations_dicts, conflict):
     """
     Add "relation": list(relations) to conflict if ASes in conflict have the
-    same organisations or maintainers.
+    same organisations, maintainers or administrative contacts.
 
     :param conflict: conflict dictionary to annotate
     :param relations_dicts: dict from DetectBGPConflicts.fill_relation_struct
@@ -87,6 +87,8 @@ def annotate_if_relation(relations_dicts, conflict):
             relations_dicts["organisations_reverse"][asn] = set(organisations)
             relations_dicts["maintainers"][maintainer] = set(asn)
             relations_dicts["maintainers_reverse"][asn] = set(organisations)
+            relations_dicts["contacts"][contact] = set(asn)
+            relations_dicts["contacts_reverse"][asn] = set(contacts)
     :return: `conflict'
     """
 
@@ -101,9 +103,10 @@ def annotate_if_relation(relations_dicts, conflict):
     as1 = announce["asn"]
     as2 = conflict_with["asn"]
 
-    orgs = relations_dicts["organisations"]
-    orgs_reverse = relations_dicts["organisations_reverse"]
-    mnts_reverse = relations_dicts["maintainers_reverse"]
+    orgs = relations_dicts.get("organisations", {})
+    orgs_reverse = relations_dicts.get("organisations_reverse", {})
+    mnts_reverse = relations_dicts.get("maintainers_reverse", {})
+    contacts_reverse = relations_dicts.get("contacts_reverse", {})
 
     as1_org = orgs_reverse.get(as1, None)
     as2_org = orgs_reverse.get(as2, None)
@@ -121,6 +124,18 @@ def annotate_if_relation(relations_dicts, conflict):
     if as2_org is not None:
         as2_siblings.update(chain.from_iterable([orgs.get(org, list())
                                                  for org in as2_org]))
+
+    as1_contacts = set()
+    for asn in as1_siblings:
+        as1_contacts.update(contacts_reverse.get(asn, set()))
+
+    as2_contacts = set()
+    for asn in as2_siblings:
+        as2_contacts.update(contacts_reverse.get(asn, set()))
+
+    if as1_contacts & as2_contacts:
+        conflict["relation"] = conflict.get("relation", list())
+        conflict["relation"].append("contact")
 
     as1_mnts = set()
     for asn in as1_siblings:
