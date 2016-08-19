@@ -22,17 +22,21 @@ def bgpreader_format_bview(collector, data):
     """
     as_path = data[8]
     if len(as_path) > 0:
-        origin = frozenset(get_as_origin(as_path))
-        if len(origin) == 1:
-            origin = iter(origin).next()
-        yield InternalMessage("F",
-                              data[1],
-                              data[3],
-                              int(data[4]),
-                              data[5],
-                              data[6],
-                              origin,
-                              as_path)
+        try:
+            origin = frozenset(get_as_origin(as_path))
+        except:
+            logger.warning("invalid AS_PATH %s", as_path)
+        else:
+            if len(origin) == 1:
+                origin = iter(origin).next()
+            yield InternalMessage("F",
+                                  data[1],
+                                  data[3],
+                                  int(data[4]),
+                                  data[5],
+                                  data[6],
+                                  origin,
+                                  as_path)
 
 
 def bgpreader_format_update(collector, data):
@@ -51,17 +55,21 @@ def bgpreader_format_update(collector, data):
     elif data[0] == "A":
         as_path = data[8]
         if len(as_path) > 0:
-            origin = frozenset(get_as_origin(as_path))
-            if len(origin) == 1:
-                origin = iter(origin).next()
-            yield InternalMessage("U",
-                                  data[1],
-                                  data[3],
-                                  int(data[4]),
-                                  data[5],
-                                  data[6],
-                                  origin,
-                                  as_path)
+            try:
+                origin = frozenset(get_as_origin(as_path))
+            except:
+                logger.warning("invalid AS_PATH %s", as_path)
+            else:
+                if len(origin) == 1:
+                    origin = iter(origin).next()
+                yield InternalMessage("U",
+                                      data[1],
+                                      data[3],
+                                      int(data[4]),
+                                      data[5],
+                                      data[6],
+                                      origin,
+                                      as_path)
 
 
 def bgpreader_format(collector, message):

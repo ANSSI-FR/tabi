@@ -23,17 +23,21 @@ def mabo_format_td2(collector, data):
         if len(as_path) == 0:
             # skip announces from IGP
             continue
-        origin = frozenset(get_as_origin(as_path))
-        if len(origin) == 1:
-            origin = iter(origin).next()
-        yield InternalMessage("F",
-                              data["timestamp"],
-                              collector,
-                              int(entry["peer_as"]),
-                              entry["peer_ip"],
-                              data["prefix"],
-                              origin,
-                              as_path)
+        try:
+            origin = frozenset(get_as_origin(as_path))
+        except:
+            logger.warning("invalid AS_PATH %s", as_path)
+        else:
+            if len(origin) == 1:
+                origin = iter(origin).next()
+            yield InternalMessage("F",
+                                  data["timestamp"],
+                                  collector,
+                                  int(entry["peer_as"]),
+                                  entry["peer_ip"],
+                                  data["prefix"],
+                                  origin,
+                                  as_path)
 
 
 def mabo_format_update(collector, data):
@@ -52,18 +56,22 @@ def mabo_format_update(collector, data):
 
     as_path = data.get("as_path", "")
     if len(as_path) != 0:
-        origin = frozenset(get_as_origin(as_path))
-        if len(origin) == 1:
-            origin = iter(origin).next()
-        for entry in data.get("announce", []):
-            yield InternalMessage("U",
-                                  data["timestamp"],
-                                  collector,
-                                  int(data["peer_as"]),
-                                  data["peer_ip"],
-                                  entry,
-                                  origin,
-                                  as_path)
+        try:
+            origin = frozenset(get_as_origin(as_path))
+        except:
+            logger.warning("invalid AS_PATH %s", as_path)
+        else:
+            if len(origin) == 1:
+                origin = iter(origin).next()
+            for entry in data.get("announce", []):
+                yield InternalMessage("U",
+                                      data["timestamp"],
+                                      collector,
+                                      int(data["peer_as"]),
+                                      data["peer_ip"],
+                                      entry,
+                                      origin,
+                                      as_path)
 
 
 def mabo_format(collector, message):
