@@ -1,3 +1,9 @@
+tabi (1.0.1) UNRELEASED; urgency=low
+
+  * inputs: do not stop processing on incorrect AS_PATH
+
+ -- Nicolas Vivet <nicolas.vivet@ssi.gouv.fr>  Sun, 19 Aug 2016 14:12:18 +0200
+
 tabi (1.0) UNRELEASED; urgency=low
 
   * Initial release.
