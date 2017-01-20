@@ -1,3 +1,9 @@
+tabi (1.0.2) UNRELEASED; urgency=low
+
+  * core: do not process too large prefixes
+
+ -- Nicolas Vivet <nicolas.vivet@ssi.gouv.fr>  Fri, 20 Jan 2017 10:12:18 +0200
+
 tabi (1.0.1) UNRELEASED; urgency=low
 
   * inputs: do not stop processing on incorrect AS_PATH

@@ -38,20 +38,24 @@ def iter_origin(origin):
 
 def default_route(update):
     """Function that handles the processing of UPDATEs containing
-    the default prefixes.
+    the default prefixes (where mask length is lower than 8 bits).
     """
 
-    if update.prefix == "0.0.0.0/0" or update.prefix == "::/0":
-        for asn in iter_origin(update.origin):
-            tmp_announce = OrderedDict([("prefix", update.prefix),
-                                        ("asn", asn),
-                                        ("as_path", update.as_path)])
-            default_info = OrderedDict([("timestamp", update.timestamp),
-                                        ("collector", update.collector),
-                                        ("peer_as", update.peer_as),
-                                        ("peer_ip", update.peer_ip),
-                                        ("announce", tmp_announce)])
-            yield default_info
+    try:
+        _, masklen = update.prefix.split("/")
+        if int(masklen) < 8:
+            for asn in iter_origin(update.origin):
+                tmp_announce = OrderedDict([("prefix", update.prefix),
+                                            ("asn", asn),
+                                            ("as_path", update.as_path)])
+                default_info = OrderedDict([("timestamp", update.timestamp),
+                                            ("collector", update.collector),
+                                            ("peer_as", update.peer_as),
+                                            ("peer_ip", update.peer_ip),
+                                            ("announce", tmp_announce)])
+                yield default_info
+    except ValueError:
+        pass
 
 
 def format_route(update, num_routes):

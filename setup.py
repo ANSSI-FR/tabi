@@ -24,7 +24,7 @@ class PyTest(TestCommand):
 
 setup(
     name="tabi",
-    version="1.0.1",
+    version="1.0.2",
     description="Detect hijacks from BGP logs",
     url="https://github.com/ANSSI-FR/tabi",
     author="ANSSI/SDE",
