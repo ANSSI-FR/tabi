@@ -133,7 +133,7 @@ def detect_hijacks(collector, files,
     if rpki_roa_file is not None:
         roa_rad_tree = Radix()
         fill_roa_struct(rpki_roa_file, roa_rad_tree)
-        funcs.append(partial(annotate_if_roa, ro_rad_tree))
+        funcs.append(partial(annotate_if_roa, roa_rad_tree))
 
     funcs.append(annotate_with_type)
     logger.info("starting hijacks detection...")
