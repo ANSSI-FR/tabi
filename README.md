@@ -24,7 +24,7 @@ to implement new inputs depending on your needs.
   * François Contat <francois.contat@ssi.gouv.fr>
 
 
-## Building TaBi
+## Building TaBi
 
 TaBi depends on two external Python modules. The easiest method to install them
 is to use [virtualenv](https://virtualenv.pypa.io) and
@@ -47,12 +47,12 @@ Removing TaBi and its dependencies is therefore as simple as removing the cloned
 repository.
 
 
-## Usage
+## Usage
 
 Historically TaBi was designed to process MRT dump files from the collectors
 of the [RIPE RIS](https://www.ripe.net/analyse/internet-measurements/routing-information-service-ris/ris-raw-data).
 
-### Grabbing MRT dumps
+### Grabbing MRT dumps
 
 You will then need to retrieve some MRT dumps. Copying and pasting the
 following commands in a terminal will grab a full BGP view and some updates.
@@ -111,7 +111,7 @@ After around 5 minutes of processing, you will find the following files in `resu
 - `all.hijacks.json.gz` that contains all BGP prefix conflicts
 
 
-## Using TaBi as a Python module
+## Using TaBi as a Python module
 
 TaBi could also be used as a regular Python module in order to use it in your
 own tool.
