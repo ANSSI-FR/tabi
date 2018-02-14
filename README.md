@@ -43,7 +43,7 @@ pip install py-radix python-dateutil
 python setup.py install
 ```
 
-Removing TaBi and its dependencies is therefore as simple as removing the cloned
+Removing TaBi and its dependencies is therefore as simple as removing the `ve_tabi` directory ans the cloned
 repository.
 
 
