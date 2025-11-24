@@ -18,11 +18,15 @@ to implement new inputs depending on your needs.
 
 ## Authors
 
-  * Nicolas Vivet <nicolas.vivet@ssi.gouv.fr>
-  * Guillaume Valadon <guillaume.valadon@ssi.gouv.fr>
-  * Julie Rossi <julie.rossi@ssi.gouv.fr>
+### Current
+
   * François Contat <francois.contat@ssi.gouv.fr>
 
+### Past
+
+  * Julie Rossi
+  * Nicolas Vivet
+  * Guillaume Valadon
 
 ## Building TaBi
 
